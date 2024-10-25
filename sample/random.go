@@ -4,6 +4,7 @@ import (
 	"math/rand"
 
 	message "github.com/aniketh3014/simple-protobuf/pb"
+	"github.com/google/uuid"
 )
 
 func randomBool() bool {
@@ -83,4 +84,23 @@ func randomScreenPanel() message.Screen_Panel {
 		return message.Screen_IPS
 	}
 	return message.Screen_OLED
+}
+
+func randomId() string {
+	return uuid.New().String()
+}
+
+func randomLaptopBrand() string {
+	return randomString("Apple", "Asus", "Lenovo")
+}
+
+func randomLaptopName(brand string) string {
+	switch brand {
+	case "Apple":
+		return randomString("MacBook Pro 16", "MacBook Pro 14", "MacBook Air M2")
+	case "Asus":
+		return randomString("ROG Zephyrus G14", "ZenBook Pro Duo", "ROG Strix Scar 15")
+	default:
+		return randomString("ThinkPad X1 Carbon", "ThinkPad X1 Extreme", "Legion 7i")
+	}
 }

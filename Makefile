@@ -6,3 +6,6 @@ run:
 
 clean:
 	rm -rf pb/*.go
+
+test:
+	go test -race ./...
