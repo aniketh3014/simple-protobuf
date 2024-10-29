@@ -13,10 +13,14 @@ import (
 
 type LaptopServer struct {
 	laptopStore LaptopStore
+	message.UnimplementedLaptopServiceServer
 }
 
 func NewLaptopServer(laptopStore LaptopStore) *LaptopServer {
-	return &LaptopServer{laptopStore}
+	return &LaptopServer{
+		laptopStore: laptopStore,
+		UnimplementedLaptopServiceServer: message.UnimplementedLaptopServiceServer{},
+	}
 }
 
 func (s *LaptopServer) CreateLaptop(ctx context.Context, req *message.CreateLaptopRequest) (*message.CreateLaptopResponse, error) {
