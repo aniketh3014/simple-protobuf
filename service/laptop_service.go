@@ -21,7 +21,7 @@ func NewLaptopServer(laptopStore LaptopStore) *LaptopServer {
 
 func (s *LaptopServer) CreateLaptop(ctx context.Context, req *message.CreateLaptopRequest) (*message.CreateLaptopResponse, error) {
 	laptop := req.GetLaptop()
-	log.Panicf("recived create laptop request with id: %s", laptop.Id)
+	log.Printf("recived create laptop request with id: %s", laptop.Id)
 
 	if len(laptop.Id) > 0 {
 		_, err := uuid.Parse(laptop.Id)

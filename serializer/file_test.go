@@ -11,6 +11,8 @@ import (
 )
 
 func TestFileSerializer(t *testing.T) {
+	t.Parallel()
+
 	binaryFile := "../tmp/laptop.bin"
 	jsonFile := "../tmp/laptop.json"
 
