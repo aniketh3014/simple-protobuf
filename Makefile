@@ -12,3 +12,9 @@ clean:
 
 test:
 	go test -race ./...
+
+server:
+	go run cmd/server/main.go -port 8080
+
+client:
+	go run cmd/client/main.go -port 0.0.0.0:8080

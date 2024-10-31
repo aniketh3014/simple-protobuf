@@ -11,6 +11,7 @@ import (
 
 type LaptopStore interface {
 	Save(laptop *message.Laptop) error
+	Find(id string) (*message.Laptop, error)
 }
 
 type InmemoryLaptopStore struct {
@@ -25,6 +26,23 @@ func NewInmemoryLaptopStore() *InmemoryLaptopStore {
 }
 
 var ErrAlreadyExists = errors.New("record already exists")
+
+func (store *InmemoryLaptopStore) Find(id string) (*message.Laptop, error) {
+	store.mutex.RLock()
+	defer store.mutex.RUnlock()
+
+	laptop := store.data[id]
+	if laptop == nil {
+		return nil, fmt.Errorf("cannot find laptop with ID %s", id)
+	}
+
+	copiedLaptop, err := deepCopy(laptop)
+	if err != nil {
+		return nil, fmt.Errorf("failed to copy laptop: %v", err)
+	}
+
+	return copiedLaptop, nil
+}
 
 func (store *InmemoryLaptopStore) Save(laptop *message.Laptop) error {
 	store.mutex.Lock()
